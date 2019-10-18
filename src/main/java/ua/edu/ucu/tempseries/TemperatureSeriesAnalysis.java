@@ -61,7 +61,7 @@ public class TemperatureSeriesAnalysis {
     }
 
     public double min() {
-        double min = temperatures[l];
+        double min = temperatures[0];
         for (double i : temperatures) {
             if (i < min) {
                 min = i;
@@ -96,20 +96,20 @@ public class TemperatureSeriesAnalysis {
                 }
                 if (i>tempValue){
                     d=Math.abs(i-tempValue);
-                    if (d < r_d){
+                    if (d <= r_d){
                         r_d=d;
                         r_i=i;
                     }
                 }
                 if (i<tempValue){
                     d=Math.abs(i-tempValue);
-                    if (d<l_d){
+                    if (d<=l_d){
                         l_d=d;
                         l_i=i;
                     }
                 }
             }
-            if (r_d>=l_d){
+            if (r_d > l_d){
                 return l_i;
             }
             return r_i;
@@ -119,15 +119,18 @@ public class TemperatureSeriesAnalysis {
 
         public double [] findTempsLessThen(double tempValue){
         double [] new_arr= new double[l];
-        int new_l=0;
+            int new_l=0;
             for (int i=0; i<l; i++){
                 if (temperatures[i] < tempValue) {
-                    System.out.println(i);
                     new_arr[new_l] = temperatures[i];
                     new_l++;
                 }
             }
-            return new_arr;
+            double [] n_arr = new double [new_l];
+            for (int i=0; i<new_l;i++){
+                n_arr[i]=new_arr[i];
+            }
+            return n_arr;
         }
 
         public double[] findTempsGreaterThen(double tempValue){
@@ -140,12 +143,16 @@ public class TemperatureSeriesAnalysis {
                     new_l++;
                 }
             }
-            return new_arr;
+            double [] n_arr = new double [new_l];
+            for (int i=0; i<new_l;i++){
+                n_arr[i]=new_arr[i];
+            }
+            return n_arr;
         }
 
 
         public TempSummaryStatistics summaryStatistics () {
-            TempSummaryStatistics t_s_s= new TempSummaryStatistics(average(),deviation(),min(), max());
+            TempSummaryStatistics t_s_s= new TempSummaryStatistics(average(), deviation(), min(), max());
             return t_s_s;
         }
 
